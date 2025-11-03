@@ -41,14 +41,14 @@ const Hero = () => {
   return (
     <section className="pt-24 pb-16 gradient-bg tech-pattern relative overflow-hidden">
       {/* Floating Elements */}
-      <div className="absolute top-20 left-10 floating-animation">
+      <div className="absolute top-24 left-10 floating-animation"style={{ animationDelay: '2s' }}>
         <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center">
           <Shield className="w-8 h-8 text-white" />
         </div>
       </div>
-      <div className="absolute top-32 right-16 floating-animation" style={{ animationDelay: '2s' }}>
-        <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center">
-          <Clock className="w-6 h-6 text-white" />
+      <div className="absolute top-24 right-10 floating-animation" style={{ animationDelay: '2s' }}>
+        <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center">
+          <Clock className="w-8 h-8 text-white" />
         </div>
       </div>
 

@@ -17,81 +17,69 @@ import { toast } from '../landingpage/ui/use-toast';
 
 const Services = () => {
   const services = [
-    
-    
     {
       icon: <Monitor className="w-8 h-8" />,
       title: "Cambio de Pantalla",
       description: "Reparamos pantallas rotas, líneas o manchas. Repuestos originales con garantía.",
-      
     },
     {
       icon: <Battery className="w-8 h-8" />,
       title: "Batería / Cargador",
       description: "Cambio de baterías agotadas y reparación de conectores de carga.",
-    
     },
     {
       icon: <Keyboard className="w-8 h-8" />,
       title: "Teclado / Touchpad",
       description: "Cambio de teclados y touchpads que no responden",
-     
     },
     {
       icon: <Cpu className="w-8 h-8" />,
       title: "Limpieza / Rendimiento",
       description: "Limpieza interna, cambio de pasta térmica y optimización del sistema.",
-    
     },
     {
       icon: <HardDrive className="w-8 h-8" />,
       title: "Instalación SSD / Upgrade",
       description: "Mejorá la velocidad con discos SSD y ampliación de memoria RAM.",
-     
     },
     {
       icon: <Shield className="w-8 h-8" />,
       title: "Eliminación de Virus",
       description: "Limpieza completa de malware, virus y optimización del sistema.",
-      
     },
     {
       icon: <Download className="w-8 h-8" />,
       title: "Instalación Windows/Linux",
       description: "Instalación limpia de sistemas operativos con drivers y programas básicos.",
-     
     },
     {
       icon: <RotateCcw className="w-8 h-8" />,
       title: "Recuperación de Datos",
       description: "Recuperamos archivos perdidos de discos dañados o formateados.",
-      
     },
     {
       icon: <Handshake className="w-8 h-8" />,
       title: "Reparación de bisagras",
       description: "¡Devolve la firmeza y suavidad a tu equipo! Reparamos bisagras dañadas o flojas en notebooks y laptops, asegurando que tu pantalla abra y cierre sin esfuerzo.",
-      
     },
     {
       icon: <Printer className="w-8 h-8" />,
       title: "Soluciones 3D a medida",
       description: "Diseñamos la solución funcional 3D que necesitas e imprimimos en PLA, PETG o ABS ¡Consulta por nuestros servicios de modelado 3D!",
-      
     },
     {
       icon: <Printer className="w-8 h-8" />,
       title: "Impresiones 3D personalizadas",
       description: "Accesorios como llaveros para tu empresa, piezas de repuesto y mucho más. ¡Consulta por nuestros servicios de impresión 3D!",
-      
     },
   ];
 
+  // 🔹 Solo cambiamos esta función
   const handleServiceClick = (serviceName) => {
-    toast({
-      title: "🚧 Esta función no está implementada aún",
-      description: "¡Pero no te preocupes! Puedes solicitarla en tu próximo prompt! 🚀"
-    });
+    const message = `¡Hola! 👋 Estoy interesado/a en el servicio de ${serviceName} y me gustaría recibir más información.`;
+    const phone = "5493516959149";
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    window.open(url, "_blank");
   };
 
   return (
@@ -139,7 +127,7 @@ const Services = () => {
               </div>
               
               <Button 
-              className="w-full bg-gradient-to-r from-blue-500 to-[#006a9e] hover:from-[#006a9e] hover:to-blue-500 text-white font-semibold rounded-full"
+                className="w-full bg-gradient-to-r from-blue-500 to-[#006a9e] hover:from-[#006a9e] hover:to-blue-500 text-white font-semibold rounded-full"
                 onClick={(e) => {
                   e.stopPropagation();
                   handleServiceClick(service.title);

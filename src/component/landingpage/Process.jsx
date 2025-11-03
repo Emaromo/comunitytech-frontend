@@ -31,6 +31,22 @@ const Process = () => {
     }
   ];
 
+  // 🔹 Función para abrir WhatsApp
+  const handleWhatsApp = () => {
+    const phone = "5493516959149";
+    const message = "¡Hola! 👋 Quisiera obtener más información sobre la reparación de mi equipo.";
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    window.open(url, "_blank");
+  };
+
+  // 🔹 Función para hacer scroll hasta la sección de contacto
+  const handleScrollToForm = () => {
+    const formSection = document.getElementById("contact"); // 👈 apunta al id de tu componente Contact.jsx
+    if (formSection) {
+      formSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -58,7 +74,7 @@ const Process = () => {
               transition={{ delay: index * 0.2 }}
               className="relative"
             >
-              {/* Connection Line */}
+              {/* Línea de conexión */}
               {index < steps.length - 1 && (
                 <div className="hidden lg:block absolute top-8 left-full w-full h-0.5 bg-gradient-to-r from-gray-300 to-gray-200 z-0"></div>
               )}
@@ -96,26 +112,18 @@ const Process = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              {/* Botón WhatsApp Directo */}
               <button 
-                onClick={() => {
-                  toast({
-                    title: "🚧 Esta función no está implementada aún",
-                    description: "¡Pero no te preocupes! Puedes solicitarla en tu próximo prompt! 🚀"
-                  });
-                }}
+                onClick={handleWhatsApp}
                 className="bg-white text-blue-600 font-bold px-8 py-4 rounded-full text-lg hover:bg-gray-100 transition-colors"
               >
                 <MessageCircle className="w-5 h-5 mr-3 inline" />
                 WhatsApp Directo
               </button>
               
+              {/* Botón Completar Formulario */}
               <button 
-                onClick={() => {
-                  toast({
-                    title: "🚧 Esta función no está implementada aún",
-                    description: "¡Pero no te preocupes! Puedes solicitarla en tu próximo prompt! 🚀"
-                  });
-                }}
+                onClick={handleScrollToForm}
                 className="bg-transparent border-2 border-white text-white font-bold px-8 py-4 rounded-full text-lg hover:bg-white hover:text-blue-600 transition-colors"
               >
                 Completar Formulario

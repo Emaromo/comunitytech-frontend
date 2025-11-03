@@ -1,9 +1,13 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { MessageCircle, Phone, MapPin, Clock, Mail } from "lucide-react";
+import { MessageCircle, Phone, MapPin, Clock, Mail, Instagram, Facebook } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+
+  // 🔗 Editables
+  const WHATSAPP = "5493516959149"; // sin +
+  const EMAIL = "com.unitytecy@gmail.com"; // cambialo si usás otro
 
   return (
     <footer
@@ -45,27 +49,55 @@ const Footer = () => {
             </p>
 
             <div className="flex space-x-3">
+              {/* WhatsApp */}
               <motion.a
-                href="https://wa.me/543511234567"
+                href={`https://wa.me/${WHATSAPP}`}
                 target="_blank"
+                rel="noopener noreferrer"
                 whileHover={{ scale: 1.2, rotate: 5 }}
                 className="w-9 h-9 bg-green-600 rounded-full flex items-center justify-center hover:bg-green-700 transition"
               >
                 <MessageCircle className="w-4 h-4" />
               </motion.a>
+
+              {/* Teléfono */}
               <motion.a
-                href="tel:+543511234567"
+                href={`tel:+${WHATSAPP}`}
                 whileHover={{ scale: 1.2, rotate: 5 }}
                 className="w-9 h-9 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition"
               >
                 <Phone className="w-4 h-4" />
               </motion.a>
+
+              {/* Email */}
               <motion.a
-                href="mailto:contacto@communitytech.com"
+                href={`mailto:${EMAIL}`}
                 whileHover={{ scale: 1.2, rotate: 5 }}
                 className="w-9 h-9 bg-red-600 rounded-full flex items-center justify-center hover:bg-red-700 transition"
               >
                 <Mail className="w-4 h-4" />
+              </motion.a>
+
+              {/* Instagram */}
+              <motion.a
+                href="https://www.instagram.com/com.unitytech?igsh=d3diaDFoM3N3amcz"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.2, rotate: 5 }}
+                className="w-9 h-9 bg-pink-600 rounded-full flex items-center justify-center hover:bg-pink-700 transition"
+              >
+                <Instagram className="w-4 h-4" />
+              </motion.a>
+
+              {/* Facebook */}
+              <motion.a
+                href="https://www.facebook.com/share/16gHYF4HHu/"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.2, rotate: 5 }}
+                className="w-9 h-9 bg-blue-700 rounded-full flex items-center justify-center hover:bg-blue-800 transition"
+              >
+                <Facebook className="w-4 h-4" />
               </motion.a>
             </div>
           </motion.div>
@@ -87,6 +119,7 @@ const Footer = () => {
                 "Instalación SSD",
                 "Eliminación de Virus",
                 "Recuperación de Datos",
+                "Impresion 3D a medida",
               ].map((servicio, i) => (
                 <li
                   key={i}
@@ -109,15 +142,15 @@ const Footer = () => {
             <div className="space-y-3 text-gray-300 text-sm">
               <div className="flex items-center space-x-2">
                 <Phone className="w-4 h-4 text-blue-400" />
-                <span>+54 351 123-4567</span>
+                <span>+{WHATSAPP}</span>
               </div>
               <div className="flex items-center space-x-2">
                 <MessageCircle className="w-4 h-4 text-green-400" />
-                <span>WhatsApp: +54 351 123-4567</span>
+                <span>WhatsApp: +{WHATSAPP}</span>
               </div>
               <div className="flex items-center space-x-2">
                 <MapPin className="w-4 h-4 text-red-400" />
-                <span>Nueva Córdoba, Córdoba</span>
+                <span>Centro, Córdoba</span>
               </div>
               <div className="flex items-start space-x-2">
                 <Clock className="w-4 h-4 text-yellow-400 mt-0.5" />
@@ -139,7 +172,7 @@ const Footer = () => {
           className="border-t border-gray-800 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center text-sm"
         >
           <p className="text-gray-400 mb-3 md:mb-0">
-            © {currentYear} Community Tech. Todos los derechos reservados.
+            © {currentYear} Comunity Tech. Todos los derechos reservados.
           </p>
 
           <div className="flex space-x-6 text-gray-400">

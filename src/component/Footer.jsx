@@ -1,5 +1,5 @@
 import React from "react";
-import { FaFacebookF, FaInstagram, FaLinkedinIn, FaEnvelope } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaEnvelope, FaWhatsapp } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 const Footer = () => {
@@ -24,7 +24,7 @@ const Footer = () => {
         >
           {/* 👉 Logo con animación */}
           <motion.img
-            src="/logo192.png" // 👈 Logo en public/logo192.png
+            src="/logo192.png"
             alt="Logo"
             className="w-10 h-10 object-contain drop-shadow-lg"
             animate={{ rotate: [0, 10, -10, 0] }}
@@ -40,38 +40,40 @@ const Footer = () => {
         <p className="text-sm mb-5 text-gray-300">Computers Service</p>
 
         {/* 🔹 Redes sociales con animación */}
-   {/* 🔹 Redes sociales con animación y colores por defecto */}
-  <div className="flex justify-center gap-6 mb-6">
-  {[
-    { icon: <FaFacebookF size={20} />, color: "text-blue-500 hover:text-blue-400", link: "https://facebook.com" },
-    { icon: <FaInstagram size={20} />, color: "text-pink-500 hover:text-pink-400", link: "https://instagram.com" },
-    { icon: <FaLinkedinIn size={20} />, color: "text-blue-400 hover:text-blue-300", link: "https://linkedin.com" },
-    { icon: <FaEnvelope size={20} />, color: "text-green-400 hover:text-green-300", link: "mailto:contacto@unitytech.com" },
-  ].map((item, i) => (
-    <motion.a
-      key={i}
-      href={item.link}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`transition-all duration-300 ${item.color}`}
-      whileHover={{ scale: 1.3, rotate: 5 }}
-      whileTap={{ scale: 0.9 }}
-    >
-      {item.icon}
-    </motion.a>
-    ))}
-     </div>
+        <div className="flex justify-center gap-6 mb-6">
+          {[
+            { 
+              icon: <FaFacebookF size={20} />, 
+              color: "text-blue-500 hover:text-blue-400", 
+              link: "https://www.facebook.com/share/16gHYF4HHu/" 
+            },
+            { 
+              icon: <FaInstagram size={20} />, 
+              color: "text-pink-500 hover:text-pink-400", 
+              link: "https://www.instagram.com/com.unitytech?igsh=d3diaDFoM3N3amcz" 
+            },
+            { 
+              icon: <FaWhatsapp size={20} />, 
+              color: "text-green-500 hover:text-green-400", 
+              link: "https://wa.me/5493516959149" 
+            },
+            
+          ].map((item, i) => (
+            <motion.a
+              key={i}
+              href={item.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`transition-all duration-300 ${item.color}`}
+              whileHover={{ scale: 1.3, rotate: 5 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              {item.icon}
+            </motion.a>
+          ))}
+        </div>
 
-        {/* 🔹 Botón de contacto animado */}
-        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="mb-4">
-          <a
-            href="mailto:contacto@unitytech.com"
-            className="inline-block px-6 py-2 bg-gradient-to-r from-blue-600 via-indigo-700 to-black rounded-xl text-white font-semibold text-sm shadow-md hover:shadow-blue-500/50 transition-all duration-300"
-          >
-            Contactanos
-          </a>
-        </motion.div>
-
+        
         {/* 🔹 Créditos */}
         <motion.p
           className="text-xs text-gray-400"
