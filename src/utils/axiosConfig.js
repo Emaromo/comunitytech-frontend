@@ -1,31 +1,73 @@
-/* Configuración de Axios para incluir token JWT automáticamente en cada petición
+/**
+ * =============================================================================
+ * CONFIGURACIÓN GLOBAL DE AXIOS
+ * -----------------------------------------------------------------------------
+ * Este archivo se encarga de:
+ *  - Detectar si la app corre LOCAL o en PRODUCCIÓN (EasyPanel)
+ *  - Elegir la URL correcta del backend automáticamente
+ *  - Agregar el token JWT en cada petición sin que vos tengas que hacerlo
+ *
+ * ⚠️ IMPORTANTE:
+ *   - NO modifiques nada en otro archivo, todo se resuelve acá.
+ *   - Backend local → localhost:8082
+ *   - Backend en servidor → 66.97.42.236:8082
+ * =============================================================================
  */
 
 import axios from "axios";
 import { getToken } from "./localStorage";
 
-// 🧱 Creamos una instancia personalizada de Axios
-// Esto es lo que vas a usar en todo tu frontend para hacer peticiones HTTP al backend
+/**
+ * 🔍 Detecta si estamos en modo producción o desarrollo.
+ * -----------------------------------------------------
+ * window.location.hostname devuelve el nombre del dominio actual.
+ *
+ * - Si es "localhost"  → estás trabajando en tu PC
+ * - Si es cualquier otro (IP o dominio) → estás en el servidor
+ */
+const isProd = window.location.hostname !== "localhost";
+
+/**
+ * 🧱 Instancia personalizada de Axios
+ * -----------------------------------
+ * Acá definimos *una sola vez* la URL base que usarán TODAS las peticiones.
+ *
+ * - En local  → usa localhost:8082
+ * - En el servidor → usa la IP del VPS donde corre tu backend
+ */
 const api = axios.create({
-// 🌐 Dirección base de tu backend (Spring Boot)
-// Cada vez que uses api.get("/algo"), esto se convierte en http://localhost:8082/algo
-baseURL: "http://localhost:8082",
+  baseURL: isProd
+    ? "http://66.97.42.236:8082" // 🌐 URL DEL BACKEND EN EASY PANEL
+    : "http://localhost:8082",  // 💻 URL DEL BACKEND EN TU PC
 });
 
-
-// 🎯 Este interceptor se ejecuta antes de cada petición (GET, POST, PUT, etc.)
-// y permite modificar la configuración de la misma.
+/**
+ * 🎯 Interceptor para agregar el token JWT automáticamente
+ * --------------------------------------------------------
+ * Antes de cada request, Axios llama a esta función.
+ *
+ * Si existe un token guardado en localStorage:
+ *   - Lo agrega al header Authorization
+ *   - Permite que Spring Security autentique al usuario
+ */
 api.interceptors.request.use((config) => {
-const token = getToken();
+  const token = getToken();
 
- // ✅ Si el token existe, lo agregamos al encabezado de la petición
-  // Esto permite que el backend verifique si el usuario está autenticado
-if (token) {
+  if (token) {
     config.headers.Authorization = "Bearer " + token;
-}
+  }
 
-  // 🔁 Devolvemos la configuración de la petición, ya modificada con el token (si existe)
-return config;
+  return config;
 });
 
+/**
+ * 📤 Exportamos la instancia lista para usar
+ * -----------------------------------------
+ * En todo tu frontend vas a usar:
+ *   api.get(...)
+ *   api.post(...)
+ *   api.put(...)
+ *
+ * Y NUNCA más usás fetch ni axios directo.
+ */
 export default api;
