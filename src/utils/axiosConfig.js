@@ -37,7 +37,7 @@ const isProd = window.location.hostname !== "localhost";
  */
 const api = axios.create({
   baseURL: isProd
-    ? "http://66.97.42.236:8082" // 🌐 URL DEL BACKEND EN EASY PANEL
+    ? "https://api.comunitytech.com.ar" // 🌐 URL DEL BACKEND EN EASY PANEL
     : "http://localhost:8082",  // 💻 URL DEL BACKEND EN TU PC
 });
 

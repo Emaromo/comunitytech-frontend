@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import api from "../../utils/axiosConfig";  // ✅ Usa AxiosConfig con auto URL
+import api from "../../utils/axiosConfig";      // ✅ Axios configurado globalmente
 import { saveToken } from "../../utils/localStorage";
 import { jwtDecode } from "jwt-decode";
 
@@ -8,33 +8,59 @@ export default function Login({ onLoginSuccess }) {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
+  /**
+   * 🔐 Función que maneja el login
+   * ------------------------------------------------------------------
+   * - Previene el comportamiento por defecto del formulario
+   * - Valida que los campos no tengan saltos de línea (`\n`)
+   * - Limpia los espacios sobrantes con `.trim()`
+   * - Envía los datos con axios al backend
+   * - Guarda el token si el login es exitoso
+   * - Llama a `onLoginSuccess()` con el rol del usuario
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // ⚠️ Validación contra saltos de línea en los inputs
+    if (email.includes("\n") || password.includes("\n")) {
+      setMessage("❌ No se permiten saltos de línea en el correo o contraseña.");
+      return;
+    }
+
     try {
-      // 🔥 Ahora usa Axios, NO fetch, y usa la baseURL correcta automáticamente
+      // 🧼 Sanitización: elimina espacios innecesarios y saltos accidentales
+      const cleanEmail = email.trim();
+      const cleanPassword = password.trim();
+
+      // 🔥 Enviamos los datos sanitizados al backend con Axios
       const response = await api.post("/users/login", {
-        email,
-        password,
+        email: cleanEmail,
+        password: cleanPassword,
       });
 
-      const token = response.data;    // backend retorna JWT en texto
-      saveToken(token);
+      const token = response.data; // El backend devuelve el JWT como string
+      saveToken(token);            // 🔐 Guardamos el token en localStorage
 
-      const decoded = jwtDecode(token);
+      const decoded = jwtDecode(token); // Decodificamos el JWT
       const role = decoded.role;
 
       if (!role) {
-        setMessage("El token no contiene rol.");
+        setMessage("⚠️ El token no contiene un rol válido.");
         return;
       }
 
-      // 🔥 Se notifican roles como siempre
-      onLoginSuccess(role);
+      onLoginSuccess(role); // 👉 Notificamos al componente padre
 
     } catch (error) {
       console.error("Error al hacer login:", error);
-      setMessage("❌ Credenciales inválidas o servidor no disponible.");
+
+      // 🧠 Mejor feedback al usuario según el tipo de error
+      if (error.response) {
+        const backendMessage = error.response.data?.message || "Credenciales inválidas.";
+        setMessage("❌ " + backendMessage);
+      } else {
+        setMessage("❌ Servidor no disponible o error de red.");
+      }
     }
   };
 

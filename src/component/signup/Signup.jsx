@@ -1,48 +1,63 @@
 import React, { useState } from "react";
-import api from "../../utils/axiosConfig"; // ⬅️ Usa la URL automática (local / servidor)
+import api from "../../utils/axiosConfig"; // ⬅️ Usa la URL automática
 
-/**
- * Formulario de Registro
- * Funciona correctamente en LOCAL y PRODUCCIÓN gracias al uso de Axios global.
- */
 export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-
   const [message, setMessage] = useState("");
+
+  // 🔄 Limpia todos los campos del formulario
+  const resetForm = () => {
+    setEmail("");
+    setPassword("");
+    setFirstName("");
+    setLastName("");
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const containsNewLine =
+      email.includes("\n") ||
+      password.includes("\n") ||
+      firstName.includes("\n") ||
+      lastName.includes("\n");
+
+    if (containsNewLine) {
+      setMessage("❌ No se permiten saltos de línea en los campos.");
+      return;
+    }
+
     try {
-      // POST al backend usando axiosConfig
+      const cleanEmail = email.trim();
+      const cleanPassword = password.trim();
+      const cleanFirstName = firstName.trim();
+      const cleanLastName = lastName.trim();
+
       const res = await api.post("/users", {
-        email,
-        password,
-        firstName,
-        lastName,
+        email: cleanEmail,
+        password: cleanPassword,
+        firstName: cleanFirstName,
+        lastName: cleanLastName,
       });
 
       if (res.status === 200 || res.status === 201) {
         setMessage("✅ Usuario registrado correctamente. Ya puedes iniciar sesión.");
-
-        setTimeout(() => {
-          setMessage("");
-        }, 3000);
+        resetForm(); // ✅ Limpia los campos después del registro
+        setTimeout(() => setMessage(""), 3000);
       }
 
     } catch (err) {
       console.error("❌ Error al registrar usuario:", err);
-      setMessage("❌ Error: El correo ya está en uso o hay problemas con el servidor.");
+      setMessage("❌ El correo ya está en uso o hubo un problema con el servidor.");
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
 
-      {/* Nombre */}
       <input
         type="text"
         placeholder="Nombre"
@@ -54,7 +69,6 @@ export default function Signup() {
         required
       />
 
-      {/* Apellido */}
       <input
         type="text"
         placeholder="Apellido"
@@ -66,7 +80,6 @@ export default function Signup() {
         required
       />
 
-      {/* Correo */}
       <input
         type="email"
         placeholder="Correo electrónico"
@@ -78,7 +91,6 @@ export default function Signup() {
         required
       />
 
-      {/* Contraseña */}
       <input
         type="password"
         placeholder="Contraseña (mín. 8 caracteres)"
@@ -90,14 +102,12 @@ export default function Signup() {
         required
       />
 
-      {/* Mensaje de estado */}
       {message && (
         <p className="text-sm text-center text-white bg-black bg-opacity-30 p-2 rounded">
           {message}
         </p>
       )}
 
-      {/* Botón */}
       <button
         type="submit"
         className="w-full bg-gradient-to-r from-gray-900 to-blue-900
@@ -107,7 +117,7 @@ export default function Signup() {
                    hover:border-blue-400 hover:shadow-[0_0_20px_#3b82f6]
                    hover:scale-105"
       >
-        Signup
+        Registrarse
       </button>
     </form>
   );
