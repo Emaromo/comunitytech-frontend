@@ -11,45 +11,31 @@ const Header = () => {
 
   const handleGoToLogin = () => navigate("/login");
 
-  const handleWhatsApp = () => {
-    toast({
-      title: "🚧 Esta función no está implementada aún",
-      description: "¡Pero no te preocupes! Puedes solicitarla en tu próximo prompt! 🚀"
-    });
-  };
-
-  const handleCall = () => {
-    toast({
-      title: "🚧 Esta función no está implementada aún",
-      description: "¡Pero no te preocupes! Puedes solicitarla en tu próximo prompt! 🚀"
-    });
-  };
-
   return (
     <>
-      {/* === HEADER PRINCIPAL === */}
+      {/* HEADER FIJO */}
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         className="fixed top-0 left-0 right-0 z-50
                    bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm
-                   w-full overflow-x-hidden"
+                   w-full"
         style={{
           WebkitOverflowScrolling: "touch",
           boxSizing: "border-box",
           maxWidth: "100vw"
         }}
       >
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 w-full overflow-hidden">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 w-full">
           <div className="flex items-center justify-between h-14 md:h-16">
             
-            {/* === LOGO Y NOMBRE === */}
+            {/* LOGO */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               className="flex items-center space-x-2"
             >
-              <div className="w-8 h-8 bg-gradient-to-br from-white-500 to-white-600 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center">
                 <img
                   src="/logo192.png"
                   alt="Logo"
@@ -59,12 +45,12 @@ const Header = () => {
               <div>
                 <h1 className="text-lg font-bold text-gray-900">Comunity Tech</h1>
                 <p className="text-xs text-gray-600 hidden sm:block">
-                  Especialistas en reparación de Notebooks & PC y diseño de soluciones 3D a medida.
+                  Especialistas en reparación de Notebooks & PC y soluciones 3D.
                 </p>
               </div>
             </motion.div>
 
-            {/* === NAVEGACIÓN DESKTOP === */}
+            {/* NAV DESKTOP */}
             <div className="hidden md:flex items-center space-x-4">
               <a
                 href="https://wa.me/5493516959149"
@@ -96,7 +82,7 @@ const Header = () => {
               </Button>
             </div>
 
-            {/* === BOTÓN MENÚ MOBILE === */}
+            {/* BOTÓN MENÚ MOBILE */}
             <div className="md:hidden">
               <Button
                 variant="ghost"
@@ -109,15 +95,15 @@ const Header = () => {
             </div>
           </div>
 
-          {/* === MENÚ MOBILE === */}
+          {/* MENÚ MOBILE */}
           {isMenuOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
+              animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               className="md:hidden py-3 border-t border-gray-200 bg-white/90 w-full"
             >
-              <div className="flex flex-col space-y-3 w-full overflow-hidden">
+              <div className="flex flex-col space-y-3 w-full">
                 <a
                   href="https://wa.me/5493516959149"
                   target="_blank"
@@ -152,12 +138,8 @@ const Header = () => {
         </div>
       </motion.header>
 
-      {/* === ESPACIADOR SOLO MOBILE === */}
-      <div
-        className={`md:hidden transition-all duration-300 ${
-          isMenuOpen ? "h-[200px]" : "h-[56px]"
-        }`}
-      ></div>
+      {/* ELIMINAMOS ESPACIADOR QUE CAUSABA EL PROBLEMA */}
+      <div className="h-14 md:h-16"></div>
     </>
   );
 };
