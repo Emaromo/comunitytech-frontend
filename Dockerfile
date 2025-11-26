@@ -14,10 +14,11 @@ RUN npm run build
 # ============================
 FROM nginx:stable-alpine
 
-# LIMPIAR TODO EL HTML (no solo los archivos)
+# LIMPIAR TODO EL HTML (eliminar restos de builds previos)
 RUN rm -rf /usr/share/nginx/html
 RUN mkdir -p /usr/share/nginx/html
 
+# COPIAR EL BUILD DE CRA (carpeta correcta: /build)
 COPY --from=build /app/build /usr/share/nginx/html
 
 EXPOSE 80
