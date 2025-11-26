@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Phone, MessageCircle, Menu, X, TicketCheck } from 'lucide-react';
 import { Button } from '../landingpage/ui/button';
-import { toast } from '../landingpage/ui/use-toast';
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
@@ -19,14 +18,13 @@ const Header = () => {
         animate={{ y: 0 }}
         className="fixed top-0 left-0 right-0 z-50
                    bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm
-                   w-full"
+                   w-full max-w-full overflow-x-hidden"
         style={{
           WebkitOverflowScrolling: "touch",
-          boxSizing: "border-box",
-          maxWidth: "100vw"
+          boxSizing: "border-box"
         }}
       >
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 w-full">
+        <div className="mx-auto px-3 sm:px-4 w-full max-w-full overflow-x-hidden">
           <div className="flex items-center justify-between h-14 md:h-16">
             
             {/* LOGO */}
@@ -101,7 +99,7 @@ const Header = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden py-3 border-t border-gray-200 bg-white/90 w-full"
+              className="md:hidden py-3 border-t border-gray-200 bg-white/90 w-full overflow-x-hidden"
             >
               <div className="flex flex-col space-y-3 w-full">
                 <a
@@ -138,7 +136,7 @@ const Header = () => {
         </div>
       </motion.header>
 
-      {/* ELIMINAMOS ESPACIADOR QUE CAUSABA EL PROBLEMA */}
+      {/* ESPACIADOR */}
       <div className="h-14 md:h-16"></div>
     </>
   );
