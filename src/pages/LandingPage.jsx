@@ -33,11 +33,11 @@ function LandingPage() {
       {/* --- Contenedor principal de la Landing --- */}
       {/* min-h-screen asegura que ocupe al menos toda la altura de la pantalla */}
       <div
-      className="min-h-screen flex flex-col bg-cover bg-start bg-no-repeat"
-      style={{
-      backgroundImage: `url('/fondo-tech4.jpg')`
-    }}
->
+        className="min-h-screen flex flex-col bg-cover bg-center bg-no-repeat overflow-x-hidden"
+        style={{
+          backgroundImage: `url('/fondo-tech4.jpg')`
+        }}
+      >
         {/* --- Header --- */}
         {/* Contiene logo, navegación y posibles botones de acción */}
         <Header />
@@ -49,17 +49,16 @@ function LandingPage() {
         {/* --- Botón de acción (CTA) --- */}
         {/* Centrado, grande y visible para que el usuario haga login o registro */}
         <div className="text-center my-8">
-  <p className="mb-3 text-white text-lg font-medium">
-    Registrate o ingresá acá para seguir el estado de tu reparación 🚀
-  </p>
-  <Link
-    to="/login" // Redirige a tu página de Login / Signup
-    className="secondary-button text-white font-semibold px-6 py-2 rounded-full"
-            >
-    
-    Seguir mi ticket
-  </Link>
-</div>
+          <p className="mb-3 text-white text-lg font-medium">
+            Registrate o ingresá acá para seguir el estado de tu reparación 🚀
+          </p>
+          <Link
+            to="/login" // Redirige a tu página de Login / Signup
+            className="secondary-button text-white font-semibold px-6 py-2 rounded-full"
+          >
+            Seguir mi ticket
+          </Link>
+        </div>
 
         {/* --- Value Strip --- */}
         {/* Muestra los valores de la empresa, beneficios o características destacadas */}
@@ -80,8 +79,9 @@ function LandingPage() {
         {/* --- Contact --- */}
         {/* Formulario o información de contacto */}
         <Contact />
-        
-         <ValueStrip />
+
+        <ValueStrip />
+
         {/* --- Footer --- */}
         {/* Información de pie de página, links adicionales, derechos de autor */}
         <Footer />
