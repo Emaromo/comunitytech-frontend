@@ -1,7 +1,7 @@
 import { jwtDecode } from "jwt-decode";
 
 // Clave bajo la que se almacenará el token en localStorage
-const TOKEN_KEY = 'authToken';  // puedes cambiar este nombre según tu preferencia
+const TOKEN_KEY = 'authToken';
 
 /**
  * Guarda el token JWT en localStorage
@@ -20,9 +20,9 @@ export function getToken() {
 }
 
 /**
- * Elimina el token JWT de localStorage
+ * Elimina el token JWT de localStorage (cerrar sesión)
  */
-export function removeToken() {
+export function clearToken() {
   localStorage.removeItem(TOKEN_KEY);
 }
 
