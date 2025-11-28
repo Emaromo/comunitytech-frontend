@@ -2,29 +2,26 @@
  * ============================================================
  * CONFIGURACIÓN GLOBAL DE AXIOS
  * ------------------------------------------------------------
- * - Detecta automáticamente entorno: LOCAL vs PRODUCCIÓN
- * - Usa JWT por Authorization Header (NO usa cookies)
- * - Agrega token automáticamente si existe
- * - Funciona para login, registro, tickets, admin/cliente
- * - Manejo centralizado de errores HTTP útiles
+ * Soporta:
+ *  - Localhost (desarrollo)
+ *  - Producción (VPS con dominio propio)
+ *  - Evita usar el dominio del frontend para llamadas backend
  * ============================================================
  */
 
 import axios from "axios";
 import { getToken } from "./localStorage";
 
-// 🧠 Detecta si está en producción o local
-const isProd = window.location.hostname !== "localhost";
-
-// 🌐 Selección automática del URL base del backend
+// 🧠 Forzamos baseURL de producción, sin depender del hostname del frontend
 const api = axios.create({
-  baseURL: isProd
-    ? "https://api.comunitytech.com.ar" // 🌐 Backend en VPS / EasyPanel
-    : "http://localhost:8082",          // 💻 Backend local en PC
-  withCredentials: false,               // 🚫 NO usamos cookies, solo JWT
+  baseURL:
+    process.env.NODE_ENV === "production"
+      ? "https://api.comunitytech.com.ar" // 👈 Backend en VPS
+      : "http://localhost:8082",          // 👈 Backend local
+  withCredentials: true,
 });
 
-// 🔐 Agregar token automáticamente a TODAS las peticiones
+// 🔐 Agregar token automáticamente
 api.interceptors.request.use((config) => {
   const token = getToken();
   if (token) {
@@ -32,20 +29,5 @@ api.interceptors.request.use((config) => {
   }
   return config;
 });
-
-// ⚠ Manejo de errores centralizado (opcional pero altamente recomendado)
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    console.error("❌ Error en API:", error.response?.status, error.response?.data);
-
-    // Token expirado o inválido → se puede agregar logout automático
-    if (error.response?.status === 401) {
-      console.warn("⚠ Token expirado o inválido.");
-    }
-
-    return Promise.reject(error);
-  }
-);
 
 export default api;
