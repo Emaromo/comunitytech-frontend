@@ -1,38 +1,22 @@
 /**
- * ============================================================
- * GESTIÓN DEL TOKEN JWT EN EL NAVEGADOR
- * ------------------------------------------------------------
- * - Guarda, obtiene y elimina el token JWT
- * - Extrae el email desde el token decodificado
- * ============================================================
+ * Utilidades para gestionar el token JWT en el almacenamiento local del navegador (localStorage).
+ * Incluye funciones para guardar, obtener y eliminar el token.
  */
-import { jwtDecode } from "jwt-decode";
 
-// 📥 Guarda el token JWT
+// Clave bajo la que se almacenará el token en localStorage
+const TOKEN_KEY = 'authToken';  // puedes cambiar este nombre según tu preferencia
+
+// Guarda el token JWT en localStorage
 export function saveToken(token) {
-  localStorage.setItem("token", token);
+  localStorage.setItem(TOKEN_KEY, token);
 }
 
-// 📤 Obtiene el token JWT
+// Obtiene el token JWT almacenado (o null si no existe)
 export function getToken() {
-  return localStorage.getItem("token");
+  return localStorage.getItem(TOKEN_KEY);
 }
 
-// ❌ Elimina el token JWT
-export function clearToken() {
-  localStorage.removeItem("token");
-}
-
-// 📧 Extrae el email desde el token decodificado
-export function getUserEmail() {
-  const token = getToken();
-  if (!token) return null;
-
-  try {
-    const decoded = jwtDecode(token);
-    return decoded.sub?.toLowerCase() || null; // Usamos el "sub" como email
-  } catch (error) {
-    console.error("❌ Error al decodificar el token JWT:", error);
-    return null;
-  }
+// Elimina el token JWT de localStorage (por ejemplo, al cerrar sesión)
+export function removeToken() {
+  localStorage.removeItem(TOKEN_KEY);
 }
